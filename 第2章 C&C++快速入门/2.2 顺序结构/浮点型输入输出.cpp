@@ -1,3 +1,4 @@
+//输入一个浮点数，然后输出它（精确到小数点后2位）。 
 #include<stdio.h>
 int main(){
     float a;
