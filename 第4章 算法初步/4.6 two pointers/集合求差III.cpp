@@ -1,22 +1,21 @@
 #include <cstdio>
-
 const int MAXV = 10001;
-int hashTable[MAXV] = {0};
+bool hashTable[MAXV] = {false};
 
 int main () {
     int n, m, x;
     scanf("%d%d", &n, &m);
     for (int i = 0; i < n; i++) {
         scanf("%d", &x);
-        hashTable[x]++;
+        hashTable[x] = true;
     }
     for (int i = 0; i < m; i++) {
         scanf("%d", &x);
-        hashTable[x]--;
+        hashTable[x] = false;
     }
     bool isFirst = true;
-    for (int i = 1; i < MAXV; i++) {
-        for (int j = 0; j < hashTable[i]; j++) {
+    for (int i = 0; i < MAXV; i++) {
+        if (hashTable[i]) {
             if (!isFirst) {
                 printf(" ");
             }
