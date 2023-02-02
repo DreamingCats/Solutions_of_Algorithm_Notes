@@ -1,12 +1,15 @@
 #include <iostream>
 #include <limits.h>
+#include <utility>
+#include <vector>
 using namespace std;
-
-const int maxn=5;
+typedef pair<int,int> Position;
+const int maxn=100;
 int n,m;
-int map[maxn][maxn],value[maxn][maxn];
+int map[maxn][maxn];
 bool visited[maxn][maxn]={false};
 int maxValue=INT_MIN;
+vector<Position> tempPath,optPath;
 
 int d[4][2]={{0,1},
 			{0,-1},
@@ -22,6 +25,7 @@ void DFS(int x,int y,int nowValue){
 	if(x==n-1&&y==m-1){ //到达终点 
 		if(nowValue>maxValue){
 			maxValue=nowValue;
+			optPath=tempPath;
 		}
 		return;
 	}
@@ -31,7 +35,9 @@ void DFS(int x,int y,int nowValue){
 		int nextX=x+d[i][0];
 		int nextY=y+d[i][1];
 		if(isValid(nextX,nextY)){
-			DFS(nextX,nextY,nowValue+value[nextX][nextY]);
+			tempPath.push_back(Position(nextX,nextY));
+			DFS(nextX,nextY,nowValue+map[nextX][nextY]);
+			tempPath.pop_back();
 		}
 	} 
 	visited[x][y]=false;
@@ -39,20 +45,19 @@ void DFS(int x,int y,int nowValue){
 
 int main(){
 	cin>>n>>m;
-	//用两个二维数组储存 
 	for(int i=0;i<n;i++){
 		for(int j=0;j<m;j++){
 			cin>>map[i][j];
 		}
 	}
-	for(int i=0;i<n;i++){
-		for(int j=0;j<m;j++){
-			cin>>value[i][j];
-		}
+	
+	tempPath.push_back(Position(0,0));
+	
+	DFS(0,0,map[0][0]);
+	
+	for(int k=0;k<optPath.size();k++){
+		cout<<optPath[k].first+1<<" " <<optPath[k].second+1<<endl;
 	}
 	
-	DFS(0,0,value[0][0]);
-	
-	cout<<maxValue;
 	return 0;
 } 
