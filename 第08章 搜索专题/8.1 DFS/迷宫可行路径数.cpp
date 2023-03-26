@@ -3,7 +3,7 @@ using namespace std;
 
 const int maxn=5;
 int n,m;
-int map[maxn][maxn];
+int mazeMap[maxn][maxn];
 bool visited[maxn][maxn]={false};
 int cnt=0;
 
@@ -13,7 +13,7 @@ int d[4][2]={{0,1},
 			{-1,0}};
 
 bool isValid(int x,int y){
-	return (x>=0&&x<n) && (y>=0&&y<m) && map[x][y]==0 && !visited[x][y];
+	return (x>=0&&x<n) && (y>=0&&y<m) && mazeMap[x][y]==0 && !visited[x][y];
 }
 
 void DFS(int x,int y){
@@ -37,7 +37,7 @@ int main(){
 	cin>>n>>m;
 	for(int i=0;i<n;i++){
 		for(int j=0;j<m;j++){
-			cin>>map[i][j];
+			cin>>mazeMap[i][j];
 		}
 	}
 	
